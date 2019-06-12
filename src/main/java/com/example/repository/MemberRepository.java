@@ -3,7 +3,6 @@ package com.example.repository;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -38,18 +37,13 @@ public class MemberRepository {
 	 * 
 	 * @param name
 	 *            名前
-	 * @return @return 検索されたメンバー一覧
+	 * @return 検索されたメンバー一覧 
 	 */
 	public List<Member> findByLikeName(String name) {
 		String sql = "SELECT id, name, mail_address, password, is_admin "
 				   + "FROM members WHERE name like '%" + name + "%' "
 				   + "AND is_admin != true";
-		try {
-			List<Member> members = jdbcTemplate.query(sql, MEMBER_ROW_MAPPER);
-			return members;
-		} catch (DataAccessException e) {
-			e.printStackTrace();
-			return null;
-		}
+		
+		return jdbcTemplate.query(sql, MEMBER_ROW_MAPPER);
 	}
 }

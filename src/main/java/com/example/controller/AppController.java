@@ -43,8 +43,8 @@ public class AppController {
 	 * クロスサイトリクエストフォージェリ説明画面を表示します.
 	 * @return クロスサイトリクエストフォージェリ説明画面
 	 */
-	@RequestMapping("/toxsrfindex")
-	public String toXsrfIndex() {
+	@RequestMapping("/tocsrfindex")
+	public String toCsrfIndex() {
 		return "csrfindex";
 	}
 }
