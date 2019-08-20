@@ -40,10 +40,11 @@ public class MemberRepository {
 	 * @return 検索されたメンバー一覧 
 	 */
 	public List<Member> findByLikeName(String name) {
-		String sql = "SELECT id, name, mail_address, password, is_admin "
-				   + "FROM members WHERE name like '%" + name + "%' "
-				   + "AND is_admin != true";
+		StringBuilder sql = new StringBuilder();
+		sql.append("SELECT id, name, mail_address, password, is_admin ");
+		sql.append("FROM members ");
+		sql.append("WHERE name like '%" + name + "%' AND is_admin != true");
 		
-		return jdbcTemplate.query(sql, MEMBER_ROW_MAPPER);
+		return jdbcTemplate.query(sql.toString(), MEMBER_ROW_MAPPER);
 	}
 }
