@@ -35,16 +35,15 @@ public class MemberRepository {
 	/**
 	 * 名前からメンバーを曖昧検索する.
 	 * 
-	 * @param name
-	 *            名前
-	 * @return 検索されたメンバー一覧 
+	 * @param name 名前
+	 * @return 検索されたメンバー一覧
 	 */
 	public List<Member> findByLikeName(String name) {
 		StringBuilder sql = new StringBuilder();
 		sql.append("SELECT id, name, mail_address, password, is_admin ");
 		sql.append("FROM members ");
 		sql.append("WHERE name like '%" + name + "%' AND is_admin != true");
-		
+
 		return jdbcTemplate.query(sql.toString(), MEMBER_ROW_MAPPER);
 	}
 }

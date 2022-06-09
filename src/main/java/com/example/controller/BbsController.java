@@ -33,11 +33,11 @@ public class BbsController {
 	public String showBbs() {
 		@SuppressWarnings("unchecked")
 		List<Article> articleList = (List<Article>) session.getAttribute("articleList");
-		if(articleList == null) {
+		if (articleList == null) {
 			articleList = new ArrayList<Article>();
 		}
-		session.setAttribute("articleList", articleList);	
-		
+		session.setAttribute("articleList", articleList);
+
 		// 投稿画面へ遷移
 		return "bbs";
 	}
@@ -45,10 +45,8 @@ public class BbsController {
 	/**
 	 * 記事を投稿します.
 	 * 
-	 * @param name
-	 *            リクエストパラメータのname
-	 * @param body
-	 *            リクエストパラメータのbody
+	 * @param name リクエストパラメータのname
+	 * @param body リクエストパラメータのbody
 	 * @return 掲示板画面
 	 */
 	@RequestMapping("/postArticle")
@@ -64,8 +62,7 @@ public class BbsController {
 	/**
 	 * 記事を削除します.
 	 * 
-	 * @param index
-	 *            リクエストパラメータのindex
+	 * @param index リクエストパラメータのindex
 	 * @return 掲示板画面
 	 */
 	@RequestMapping("/deleteArticle")
@@ -73,7 +70,7 @@ public class BbsController {
 		@SuppressWarnings("unchecked")
 		List<Article> articleList = (List<Article>) session.getAttribute("articleList");
 		ArticleService articleService = new ArticleService();
-		int intIndex = Integer.parseInt(index); //indexをStringからintに変換
+		int intIndex = Integer.parseInt(index); // indexをStringからintに変換
 		articleService.deleteArticle(articleList, intIndex);
 		return "redirect:/bbs/show";
 	}
