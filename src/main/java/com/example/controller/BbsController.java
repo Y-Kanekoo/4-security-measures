@@ -3,14 +3,16 @@ package com.example.controller;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.domain.Article;
 import com.example.service.ArticleService;
+
+import jakarta.servlet.http.HttpSession;
 
 /**
  * 掲示板アプリケーションのコントローラ.
@@ -29,7 +31,7 @@ public class BbsController {
 	 * 
 	 * @return 掲示板画面
 	 */
-	@RequestMapping("/show")
+	@GetMapping("/show")
 	public String showBbs() {
 		@SuppressWarnings("unchecked")
 		List<Article> articleList = (List<Article>) session.getAttribute("articleList");
@@ -49,7 +51,7 @@ public class BbsController {
 	 * @param body リクエストパラメータのbody
 	 * @return 掲示板画面
 	 */
-	@RequestMapping("/postArticle")
+	@PostMapping("/postArticle")
 	public String postArticle(String name, String body) {
 		@SuppressWarnings("unchecked")
 		List<Article> articleList = (List<Article>) session.getAttribute("articleList");
@@ -65,7 +67,7 @@ public class BbsController {
 	 * @param index リクエストパラメータのindex
 	 * @return 掲示板画面
 	 */
-	@RequestMapping("/deleteArticle")
+	@PostMapping("/deleteArticle")
 	public String deleteArticle(String index) {
 		@SuppressWarnings("unchecked")
 		List<Article> articleList = (List<Article>) session.getAttribute("articleList");
