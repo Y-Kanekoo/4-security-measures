@@ -33,7 +33,8 @@
 <!--	名前:<span th:text="${article.name}"></span><br>-->
 <!--	内容:<span th:text="${article.body}"></span><br>-->
 	<form th:action="@{/bbs/deleteArticle}" method="post">
-	    <input type="hidden" name="index" th:value="${status.index}">
+<!--	    <input type="hidden" name="index" th:value="${status.index}">-->
+		<input type="hidden" name="csrfToken" th:value="${csrfToken}">
 	    <button>削除</button>
 	</form>
 </div>
