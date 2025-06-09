@@ -1,6 +1,8 @@
 package com.example.repository;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.RowMapper;
@@ -39,11 +41,24 @@ public class MemberRepository {
 	 * @return 検索されたメンバー一覧
 	 */
 	public List<Member> findByLikeName(String name) {
-		StringBuilder sql = new StringBuilder();
-		sql.append("SELECT id, name, mail_address, password, is_admin ");
-		sql.append("FROM members ");
-		sql.append("WHERE name like '%" + name + "%' AND is_admin != true");
+//		StringBuilder sql = new StringBuilder();
+//		sql.append("SELECT id, name, mail_address, password, is_admin ");
+//		sql.append("FROM members ");
+//		sql.append("WHERE name like '%" + name + "%' AND is_admin != true");
 
-		return jdbcTemplate.query(sql.toString(), MEMBER_ROW_MAPPER);
+
+		String sql = """
+			SELECT id, name, mail_address, password, is_admin
+			FROM members
+			WHERE name LIKE CONCAT('%', :name, '%') AND is_admin != true
+			ORDER BY id
+			""";
+
+		// SQLのパラメータを格納するMapを作成
+		Map<String, Object> params = new HashMap<>();
+		// :nameパラメータに検索したい名前をセット
+		params.put("name", name);
+		// パラメータバインドしてクエリを実行し、結果をMemberオブジェクトのリストで返す
+		return jdbcTemplate.query(sql, params,  MEMBER_ROW_MAPPER);
 	}
 }
